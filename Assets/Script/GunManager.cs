@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class GunManager : MonoBehaviour
 {
@@ -22,9 +24,13 @@ public class GunManager : MonoBehaviour
 
     private float NextShootTime = 0f;
 
+    int i;
+
     int MaxAmmo = 6;
     int CurrentAmmo;
 
+    public Image[] Bullets;
+    public Sprite Bullet;
 
     GameObject ImpactGO;
 
@@ -38,15 +44,29 @@ public class GunManager : MonoBehaviour
         Fire();
         Reload();
         HideGun();
+
+        for(i = 0; i < Bullets.Length; i++ )
+        {
+            if(i < CurrentAmmo)
+            {
+                Bullets[i].enabled = true;
+            }
+            else
+            {
+                Bullets[i].enabled = false;
+            }
+        }
     
     }
 
-    public void Fire()
+         public void Fire()
+  
     {
         if(CurrentAmmo <= 0)
         {
             GunAnimator.SetTrigger("Reload");
-            CurrentAmmo = MaxAmmo;
+
+            Invoke("AmmoAssignForDelay", 0.3f);
         }
         if (GunAnimator.GetCurrentAnimatorStateInfo(0).IsName("Reload") || IsGunHide)
         {
@@ -62,6 +82,11 @@ public class GunManager : MonoBehaviour
             MuzzleFlash.Play();
             Audio.PlayOneShot(FireClip, Volume);
         }
+    }
+
+    void AmmoAssignForDelay()
+    {
+        CurrentAmmo = MaxAmmo;
     }
 
     void shoot()
@@ -116,9 +141,8 @@ public class GunManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(1))
             {
+                CurrentAmmo = MaxAmmo;
                 GunAnimator.SetTrigger("Reload");
-
-
             }
         }
       

@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 {
     public float Health = 50f;
 
-    //public Transform player;
+    
     
 
     public float StartDistance;

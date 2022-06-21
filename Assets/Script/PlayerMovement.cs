@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerMovement : MonoBehaviour
@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     public TextMeshProUGUI PlayerHealth;
 
+
     Vector3 Velocity;
     bool IsGrounded;
 
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Start()
     {
+        
         PlayerAnimator = GetComponent<Animator>();
         
     }
@@ -88,8 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Die()
     {
-        // Destroy(gameObject);
-        Debug.Log("Mar Gya mmmmmmmmm la la lalalala la");
+        SceneManager.LoadScene(2);
     }
 
 }
